@@ -3,25 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>70 MHz Mixer → 25–30 kHz IF Chain (RC + Op-Amp + LC)</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<style>
-  :root { --fg:#111; --muted:#555; --bg:#fff; --accent:#0b84f3; --code:#f6f8fa; }
-  html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
-  main{max-width:980px;margin:2.2rem auto;padding:0 1rem}
-  h1,h2,h3{line-height:1.2;margin:1.6rem 0 .8rem}
-  h1{font-size:1.9rem} h2{font-size:1.4rem} h3{font-size:1.15rem}
-  p{margin:.7rem 0}
-  code,kbd,pre{font-family:ui-monospace,SFMono-Regular,Consolas,Monaco,monospace}
-  pre{background:var(--code);border:1px solid #e2e5e9;border-radius:8px;padding:12px;overflow:auto}
-  code{background:var(--code);padding:.2em .35em;border-radius:6px}
-  table{border-collapse:collapse;width:100%;margin:1rem 0}
-  th,td{border:1px solid #e2e5e9;padding:.5rem .6rem;text-align:left;vertical-align:top}
-  th{background:#fafbfc}
-  .muted{color:var(--muted)}
-  .pill{background:#eef6ff;color:#084e9b;border:1px solid #cfe2ff;border-radius:999px;padding:.1rem .5rem}
-  .box{border:1px solid #e2e5e9;border-radius:10px;padding:14px;margin:1rem 0}
-</style>
+
 </head>
 <body>
 <main>
