@@ -82,7 +82,7 @@ Target: **Cutoff frequency = 28 kHz (±2 kHz)**
 - Final output has a **clean passband at ~25–30 kHz** with sharp attenuation above cutoff.
 
 -  <img src="Project_Essentials/LT_SPICE_OUTPUT.jfif" width="700" alt="RF Mixer and Mutistage Low Pass Filter LT SPICE DESIGN">
-  <img src="Project_Essentials/LT_SPICE_SPECTRUM ANALYSIS.jfif" width="700" alt="RF Mixer and Mutistage Low Pass Filter LT SPICE DESIGN">
+  - <img src="Project_Essentials/LT_SPICE_SPECTRUM ANALYSIS.jfif" width="700" alt="RF Mixer and Mutistage Low Pass Filter LT SPICE DESIGN">
 
 ---
 
