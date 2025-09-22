@@ -22,7 +22,7 @@ Target: **Cutoff frequency = 28 kHz (±2 kHz)**
 
 ---
 
-📦 Block Diagram
+## 📦 Block Diagram
 <p align="center">
   <img src="Project_Essentials/Block_Diagram_Mixer_LowPass.png" width="700" alt="RF Mixer and Mutistage Low Pass Filter Block Diagram">
 </p>
