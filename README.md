@@ -1,97 +1,80 @@
-# High-Performance-Precision-RF-Mixer-and-Multistage-Cascaded-Low-Pass-Filter-Design-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
+# High-Performance Precision RF Mixer and Multistage Cascaded Low-Pass Filter Design
 
-</head>
-<body>
-<main>
+## Introduction
+In RF communication systems, signals are often transmitted and received at very high frequencies (tens of MHz).  
+Direct processing of such high-frequency signals is difficult and inefficient.  
+To solve this, a **mixer** is used to shift the frequency down to a manageable range, called the **Intermediate Frequency (IF)**.  
+After mixing, unwanted high-frequency components are removed using **low-pass filters**.  
 
+This project demonstrates the design of a **70 MHz BJT-based mixer** followed by a **multistage cascaded low-pass filter** that extracts a **clean IF signal in the 25–30 kHz range**.
 
-## BASIC OVERVIEW
+---
 
-In RF communication systems, a **mixer** is used to shift signals from a high frequency (RF) down to a lower frequency (IF – Intermediate Frequency).  
-This makes further processing (filtering, amplification, digitization) easier and more cost-effective.
+## System Overview
 
-When an RF signal (around 70 MHz) is mixed with a Local Oscillator (LO ≈ 70.000 MHz), the output includes new frequency components at:
-<h1>Switching Mixer (70 MHz) → Low-IF Chain @ 25–30 kHz</h1>
+**Pipeline:**  
+1. **Mixer Stage (70 MHz input)** – Single-balanced BJT mixer.  
+2. **Stage-1 Low-Pass Filter** – 2nd-order passive RC filter (rough shaping).  
+3. **Stage-2 Low-Pass Filter** – 2nd-order Sallen–Key active filter (Op-Amp, sharper roll-off).  
+4. **Stage-3 Low-Pass Filter** – 2nd-order LC filter (final cleanup for strong stopband rejection).  
 
-<p class="muted">
-<strong>Pipeline:</strong> Single-balanced BJT mixer → <span class="pill">Stage-1</span> 2nd-order passive RC → <span class="pill">Stage-2</span> 2nd-order Sallen–Key (op-amp) → <span class="pill">Stage-3</span> 2nd-order LC “cleanup”.
-</p>
+Target: **Cutoff frequency = 28 kHz (±2 kHz)**
 
-<div class="box">
-<pre>
-RF ≈ 70.010…70.030 MHz
-LO = 70.000 MHz
-Desired IF = |RF - LO| ≈ 10–30 kHz (here: 25–30 kHz target)
-</pre>
-</div>
+---
 
-<h2 id="stage1">1) Stage-1 — Passive 2nd-order RC (two RCs in series)</h2>
+## Mixer Stage
 
-<p><strong>Design target:</strong> make the combined −3 dB near the final fc. For two identical 1st-order sections, set each section’s corner to <code>f_section ≈ 1.56 × f_c</code>.</p>
+- **Transistor:** BC547B (BJT in common-emitter configuration).  
+- **Inputs:**  
+  - RF input: ~70.01 MHz  
+  - LO input: 70 MHz  
+- **Output:**  
+  - IF component at ~10 kHz (difference frequency)  
+  - Along with higher-order mixing products (filtered later).
 
-<ul>
-  <li>Per section: <code>R = 10 kΩ</code>, <code>C ≈ 360 pF</code> (330–390 pF OK)</li>
-  <li>Two sections in series → ~2nd-order with gentle pass-band</li>
-  <li>Buffer the next stage (op-amp input) so loading doesn’t shift poles</li>
-</ul>
+---
 
-<h2 id="stage2">2) Stage-2 — Op-amp 2nd-order LPF (Sallen–Key, Butterworth)</h2>
+## Filter Design
 
-<p>Use equal R’s and equal C’s; with that symmetry, Butterworth damping requires a gain of <code>K ≈ 1.586</code> because <code>Q = 1/(3 − K) = 1/√2</code>.</p>
+### Stage-1: Passive RC (2nd-order)
+- Provides initial attenuation of high-frequency components.  
+- Simple and compact but limited roll-off.  
 
-<ul>
-  <li><code>C1 = C2 = 1 nF</code></li>
-  <li><code>R1 = R2 ≈ 5.62 kΩ</code> (use 5.6 kΩ)</li>
-  <li><code>Gain K ≈ 1.586</code> → pick <code>R_g = 10 kΩ</code>, <code>R_f = 5.9 kΩ</code> (5.6 kΩ gives K≈1.56, still close)</li>
-  <li>Op-amp GBW ≥ 1 MHz (e.g., TLV2462/LMV358/OPA350)</li>
-</ul>
+### Stage-2: Active Sallen–Key (2nd-order Op-Amp)
+- Adds sharper cutoff and better control over frequency response.  
+- Boosts the desired IF band (~25–30 kHz) while attenuating higher harmonics.  
 
-<h2 id="stage3">3) Stage-3 — LC 2nd-order “cleanup” (uses your 0.1 H inductors)</h2>
+### Stage-3: LC Low-Pass (2nd-order)
+- Final cleanup stage for high-frequency suppression.  
+- Ensures strong attenuation of mixer spurs and harmonics.  
 
-<p>For a simple series-L / shunt-C section targeted around 28 kHz:</p>
-<pre>
-f_c ≈ 1 / ( 2π · √(L · C) )
-C ≈ 1 / ( (2π f_c)^2 · L )
-</pre>
-<p>With L = 0.1 H and f_c = 28 kHz ⇒ C ≈ 0.32 nF (≈330 pF).</p>
+---
 
-<p>If you want the full 6-pole ladder (Butterworth), use:</p>
-<ul>
-  <li><strong>C4 = C5 ≈ 240 pF</strong></li>
-  <li><strong>C6 ≈ 160 pF</strong></li>
-</ul>
+## Example Component Values (for ~28 kHz cutoff)
 
-<h2 id="mixer">4) How the BJT “switching mixer” works (plain English)</h2>
-<ul>
-  <li>LO drives the transistor like a switch; base sees RF.</li>
-  <li>Output current = RF × sign(LO), which creates new tones at RF±LO (that’s your IF) and odd harmonics.</li>
-  <li>The filters strip away everything except the desired low-IF (25–30 kHz).</li>
-</ul>
+- **RC Stage:**  
+  - R = 5.6 kΩ  
+  - C = 1 nF  
 
-<h2 id="bom">5) Example BOM (28 kHz target)</h2>
-<table>
-<thead><tr><th>Stage</th><th>Part</th><th>Value</th><th>Notes</th></tr></thead>
-<tbody>
-<tr><td>RC#1</td><td>R</td><td>10 kΩ</td><td>first RC section</td></tr>
-<tr><td>RC#1</td><td>C</td><td>360 pF (330–390 pF)</td><td></td></tr>
-<tr><td>RC#2</td><td>R</td><td>10 kΩ</td><td>second RC section</td></tr>
-<tr><td>RC#2</td><td>C</td><td>360 pF (330–390 pF)</td><td></td></tr>
-<tr><td>Sallen–Key</td><td>C1=C2</td><td>1 nF</td><td>Butterworth, K≈1.586</td></tr>
-<tr><td>Sallen–Key</td><td>R1=R2</td><td>5.62 kΩ (5.6 kΩ)</td><td></td></tr>
-<tr><td>Sallen–Key</td><td>Rf/Rg</td><td>5.9 kΩ / 10 kΩ</td><td>Gain set</td></tr>
-<tr><td>LC cleanup</td><td>L</td><td>0.1 H</td><td>inductor</td></tr>
-<tr><td>LC cleanup</td><td>C</td><td>330 pF (or C4=C5=240 pF, C6=160 pF for 6-pole)</td><td></td></tr>
-</tbody>
-</table>
+- **Sallen–Key Stage:**  
+  - R1 = 10 kΩ, R2 = 10 kΩ  
+  - C1 = 560 pF, C2 = 560 pF  
 
-<hr/>
+- **LC Stage (with L = 0.1 H):**  
+  - C ≈ 3.2 nF (tuned for ~28 kHz cutoff)  
 
-<p class="muted">© YourName — MIT licensed (optional). Contributions and issues welcome.</p>
+---
 
-</main>
-</body>
-</html>
+## Simulation Results
+
+- Mixer output shows downconversion of 70 MHz RF with 70 MHz LO to IF (~10 kHz).  
+- Cascaded filtering stages progressively remove higher harmonics.  
+- Final output has a **clean passband at ~25–30 kHz** with sharp attenuation above cutoff.  
+
+---
+
+## Applications
+
+- RF front-end design.  
+- Communication receivers.  
+- Educational demonstration of frequency conversion and multistage filtering.
