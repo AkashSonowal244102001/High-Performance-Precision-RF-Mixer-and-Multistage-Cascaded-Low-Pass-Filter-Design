@@ -7,9 +7,9 @@
 </head>
 <body>
 <main>
-# High-Performance Precision RF Mixer and Multistage Cascaded Low-Pass Filter Design
 
-## Theory
+
+## BASIC OVERVIEW
 
 In RF communication systems, a **mixer** is used to shift signals from a high frequency (RF) down to a lower frequency (IF – Intermediate Frequency).  
 This makes further processing (filtering, amplification, digitization) easier and more cost-effective.
