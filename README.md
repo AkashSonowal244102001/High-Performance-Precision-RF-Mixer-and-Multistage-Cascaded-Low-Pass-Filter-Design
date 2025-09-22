@@ -57,7 +57,7 @@ Target: **Cutoff frequency = 28 kHz (±2 kHz)**
 
 ## 📦 LT Spice Design
 p align="center">
-  <img src="Project_Essentials/Block_Diagram_Mixer_LowPass.png" width="700" alt="RF Mixer and Mutistage Low Pass Filter Block Diagram">
+  <img src="Project_Essentials/LT_SPICE_OUTPUT.jfif" width="700" alt="RF Mixer and Mutistage Low Pass Filter Block Diagram">
 </p>
 
 ## Example Component Values (for ~28 kHz cutoff)
