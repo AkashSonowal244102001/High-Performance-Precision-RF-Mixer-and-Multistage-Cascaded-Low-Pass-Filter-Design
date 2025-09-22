@@ -10,7 +10,7 @@ This project demonstrates the design of a **70 MHz BJT-based mixer** followed by
 
 ---
 
-## System Overview
+✨ System Overview
 
 **Pipeline:**  
 1. **Mixer Stage (70 MHz input)** – Single-balanced BJT mixer.  
@@ -21,6 +21,8 @@ This project demonstrates the design of a **70 MHz BJT-based mixer** followed by
 Target: **Cutoff frequency = 28 kHz (±2 kHz)**
 
 ---
+
+📦 Block Diagram
 
 ## Mixer Stage
 
